@@ -38,8 +38,8 @@ def main()
     course_map[course_name] = course
     for s_id in picks
       pick_student = students[s_id]
-      course_out[course_name] = course_out[course_name].append(pick_student)
-      student_out[s_id] = student_out[s_id].append(course)
+      course_out[course_name] = course_out[course_name].push(pick_student)
+      student_out[s_id] = student_out[s_id].push(course)
     end
 
   end
@@ -60,8 +60,8 @@ def main()
           if course_name.include?(student_course_name) and (course['cur_num'] < course['max_num'])
             course['cur_num'] = course['cur_num'] + 1
             student['get'] = student['get']  + 1
-            course_out[course_name] = course_out[course_name].append(student)
-            student_out[student['s_id']] = student_out['s_id'].append(course)
+            course_out[course_name] = course_out[course_name].push(student)
+            student_out[student['s_id']] = student_out['s_id'].push(course)
           end
         end
       end
@@ -80,7 +80,7 @@ def make_out(course_path, student_path,course_out, student_out, course_map, all_
       name, section = course_name.split('_')
       s_ids = []
       for student in students
-        s_ids.append(student['s_id'])
+        s_ids.push(student['s_id'])
       end
       s_ids_str = s_ids.join(';')
       fill_num = course['cur_num']
@@ -99,7 +99,7 @@ def make_out(course_path, student_path,course_out, student_out, course_map, all_
         courses = student_out[s_id]
         courses_names = []
         for course in courses
-         courses_names.append(course['course_name'])
+         courses_names.push(course['course_name'])
         end
         courses_names_str = courses_names.join(';')
       end
@@ -114,7 +114,7 @@ def make_out(course_path, student_path,course_out, student_out, course_map, all_
       courses = student_out[s_id]
       course_names = []
       for course in courses
-        course_names.append(course['course_name'])
+        course_names.push(course['course_name'])
       end
 
       course_names_str = course_names.join(';')
@@ -131,7 +131,7 @@ def pick_students(course, students, courses_students)
   picks = []
   for s_id in courses_students[course_name].keys
     if pick_count < min_num
-      picks.append(s_id)
+      picks.push(s_id)
       pick_count = pick_count + 1
       course['cur_num'] = course['cur_num'] + 1
     else
